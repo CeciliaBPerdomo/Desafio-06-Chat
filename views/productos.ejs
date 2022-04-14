@@ -31,20 +31,23 @@
             if (data) {
                 let html = data.map(function(elem, index){
                     return(`<div>
-                    <strong>${elem.author}</strong>:
-                    <em>${elem.text}</em></div>`)
+                    <strong style="color: blue">${elem.author}</strong>
+                    <em style="color:brown">${elem.fyh}:</em>
+                    <I style="color: green">${elem.text}</I></div>`)
                 }).join(" ")
                 document.getElementById('messages').innerHTML = html
             } else {
-                document.getElementById('messages').innerHTML =  `<strong>Todavía no hay mensajes, se el primero!</strong>`
+                document.getElementById('messages').innerHTML = `<strong>Todavía no hay mensajes, se el primero!</strong>`
             }
         }
 
         function addMessage(e) {
             let mensaje = {
                 author: document.getElementById('username').value, 
-                text: document.getElementById('texto').value
+                text: document.getElementById('message').value,
+                fyh: `${new Date().toLocaleDateString()}-${new Date().toLocaleTimeString()}`
             }
+            
             // new-message es el nombre del evento
             socket.emit('new-message', mensaje)
 
