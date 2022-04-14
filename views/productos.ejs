@@ -21,7 +21,44 @@
     <footer>
         <%- include('./footer')-%>
     </footer>
-    
-    <script src="js/main.js"></script>
+    <!--
+     <script src="js/main.js"></script> -->
+
+     <script>
+         let socket = io.connect()
+
+        function render(data) {
+            if (data) {
+                let html = data.map(function(elem, index){
+                    return(`<div>
+                    <strong>${elem.author}</strong>:
+                    <em>${elem.text}</em></div>`)
+                }).join(" ")
+                document.getElementById('messages').innerHTML = html
+            } else {
+                document.getElementById('messages').innerHTML =  `<strong>Todavía no hay mensajes, se el primero!</strong>`
+            }
+        }
+
+        function addMessage(e) {
+            let mensaje = {
+                author: document.getElementById('username').value, 
+                text: document.getElementById('texto').value
+            }
+            // new-message es el nombre del evento
+            socket.emit('new-message', mensaje)
+
+            document.getElementById('texto').value = ''
+            document.getElementById('texto').focus()
+
+            return false
+        }
+
+        socket.on('messages', function(data){
+            console.log(data)
+            render(data)
+        })
+        
+     </script>
 </body>
 </html>

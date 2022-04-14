@@ -18,7 +18,7 @@ npm install express socket.io
 npm i ejs
 */
 
-let socket = io.connect()
+/* let socket = io.connect()
 
 function render(data) {
     if (data) {
@@ -50,4 +50,4 @@ function addMessage(e) {
 socket.on('messages', function(data){
     console.log(data)
     render(data)
-})
+}) */
